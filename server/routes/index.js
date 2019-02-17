@@ -2,7 +2,7 @@ const express = require('express');
 const request = require('request');
 const db = require('../config/database_conn');
 
-var key_auth= 'Bearer 04192287-2d81-3325-a10e-22464cbb14d7';
+var key_auth= 'Bearer xxxxxxxxx';
 
 const router = express.Router();
 var sess;
