@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <script src="./jquery.js"></script>  -->
+    <style>
+        * { box-sizing: border-box; }
+body {
+  font: 16px Arial; 
+}
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+#myInput {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9; 
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+    </style>
+</head>
+
+<body>
+
+
+
+  <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+          <div class="navbar-collapse navbar-collapse-1 collapse" aria-expanded="true">
+              <ul class="nav navbar-nav">
+                  <li class="active">
+                      <a href="/"><span style="margin-right:2px" class="glyphicon glyphicon-home"></span> Home</a>
+                  </li>
+                  <!-- Rajeev -->
+                  <li class="active">
+                    <a href="/home/favourite"><span style="margin-right:2px" class="glyphicon glyphicon-star"></span> Favourites</a>
+                  </li>
+                  
+
+              </ul>
+              <div class="navbar-form navbar-right">
+                  <form class="form-inline" action="/logout" method="POST">
+                      <input type="submit" value="Logout" class="btn btn-info" role="button">
+                  </form>
+              </div>
+              <!-- <div class="navbar-form navbar-right">
+                  
+              </div> -->
+          </div>
+      </div>
+  </div>
+  <div class="container">
+    
+
+    <h2>Favourite Events</h2>
+      <% for(var i = 0; i < favourite_events.length; i++){ %>
+        <div class="panel panel-default" >
+          <div class="panel-heading" style="height:50px;"><b><%= favourite_events[i]['event_name'] %>:</b> Start Time:<%= favourite_events[i]['event_starttime'] %> - End Time: <%= favourite_events[i]['event_endtime'] %>&nbsp; 
+            <button style="float:right; margin: 2px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Get Directions</button>
+            
+
+            <form style="float:right" action="/unfavourite" method="POST">
+              <input type="hidden" name="event_name" value="<%= favourite_events[i]['event_name'] %>">
+              <input type="submit" value="Remove">
+              
+            </form>
+          </div>
+          <div class="panel-body">
+            <%= favourite_events[i]['eventDescription'] %>
+          </div> 
+        </div>
+      <% } %>
+
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-content" style="width:1000px;margin: auto">
+          <div class="modal-body" style="height:500px;width:900px;">
+            <iframe src="/home/route" style="width:100%; height:100%;"></iframe>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>          
+      </div>
+    </div>
+
+   <script>
+    $(".dropdown-menu li a").click(function(){
+      $("#addForm").css('display','inline-block');
+      var courseValue = $(this).text();
+      var courseId = courseValue.substring(0,6);
+      $("#courseId").val(courseId);
+    });  
+  </script>
+  
+
+</body>
+</html>

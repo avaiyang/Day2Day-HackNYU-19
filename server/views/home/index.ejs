@@ -69,8 +69,12 @@ input[type=submit] {
             <li class="active">
               <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
             </li>
+            <li class="active">
+              <a href="/home/favourite"><span style="margin-right:2px" class="glyphicon glyphicon-star"></span> Favourites</a>
+            </li>
           </ul>
-          <div class="navbar-form navbar-right">
+          <h1 style="margin-left:43%;">Day2Day</h1>
+          <div class="navbar-form navbar-right" style="float:right;width:100px;margin-top:-5%">
               <form class="form-inline" action="/logout" method="POST">
                 <input type="submit" value="Logout" class="btn btn-info" role="button">
               </form>
@@ -80,10 +84,21 @@ input[type=submit] {
     </div>
     
     <div class="container">
-      <div class="jumbotron">
-        <p>Welcome <%=name %></p>
+
+      <div class="jumbotron" style="height:20px">
+        <p style="margin:auto; padding:auto">Welcome <%=name %></p>
       </div>
         
+      <!-- <svg height="50" width="50">
+          <circle cx="25" cy="25" r="10" stroke="black" stroke-width="3" fill="green" />
+          <p style="float:center;">Course To Attend Today.</p>
+        </svg>
+      <br> 
+      <svg height="50" width="50">
+          <circle cx="25" cy="25" r="10" stroke="black" stroke-width="3" fill="red" />
+          Events You Cannot Attend Today.
+        </svg> -->
+      
       <form>
         <div class="dropdown">
           <button class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">Add Courses<span class="caret"></span></button>
@@ -147,6 +162,16 @@ input[type=submit] {
           <div class="panel-heading" style="height:50px;">
             <b><span id="testday" hidden><%= eventDetails[i]['eventDay'] %></span><%= eventDetails[i]['eventName'] %>:</b> Start Time:<%= eventDetails[i]['eventStartTime'] %> - End Time: <%= eventDetails[i]['eventEndTime'] %>&nbsp; 
               <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Get Directions</button>
+              <form style="float:right" action="/favourite" method="POST">
+                <input type="hidden" name="uid" value="5">
+                <input type="hidden" name="event_name" value="<%= eventDetails[i]['eventName'] %>">
+                <input type="hidden" name="event_desc" value="<%= eventDetails[i]['eventDescription'] %>">
+                <input type="hidden" name="event_starttime" value="<%= eventDetails[i]['eventStartTime'] %>">
+                <input type="hidden" name="event_endtime" value="<%= eventDetails[i]['eventEndTime'] %>">
+                <input class="marked" style="display: inline" type="submit" value="★">
+                <input class="unmarked" style="display: none" type="submit" value="☆">
+                
+              </form>
               <span id="<%= i + 'testStartTime'%>" hidden><%= eventDetails[i]['eventStartTime'] %></span>
               <span id="<%= i + 'testEndTime'%>" hidden><%= eventDetails[i]['eventEndTime'] %></span>
                 

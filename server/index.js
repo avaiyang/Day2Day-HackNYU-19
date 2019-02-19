@@ -18,9 +18,9 @@ app.set('views',path.join(__dirname,'./views'));
 const options = {
     host: "localhost",
     user : "root",
-    password:"root",
+    password:"",
     database: "hacknyu",
-    port: 8889, 
+    port: 3306, 
 
 };
 
